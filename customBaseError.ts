@@ -31,7 +31,7 @@ export abstract class CustomBaseError extends Error {
     }
 
     private getMessageByErrorCode(): string {
-        // メンバ変数にしてもOK
+        // メンバ変数にしてコンストラクタ内での初期化などもOK
         const errorMessageMapping = new ErrorMessageMapping();
 
         return errorMessageMapping.getErrorMessage(this.errorCode);
