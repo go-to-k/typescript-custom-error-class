@@ -2,12 +2,12 @@ import { ErrorMessageMapping } from "./errorMessageMapping";
 
 export abstract class CustomBaseError extends Error {
     private errorCode: string;
-    private moduleError: Error | null;
+    private moduleError: Error | undefined;
 
     constructor(errorCode: string, e?: Error) {
         super(); //this.messageはここではいれないが、super()は必須なので空で初期化
         this.errorCode = errorCode;
-        this.moduleError = e ? e : null;
+        this.moduleError = e;
         this.message = this.getMessageByErrorCode();
 
         this.describeMessage();
@@ -31,10 +31,9 @@ export abstract class CustomBaseError extends Error {
     }
 
     private getMessageByErrorCode(): string {
+        // メンバ変数にしてもOK
         const errorMessageMapping = new ErrorMessageMapping();
 
-        const message = errorMessageMapping.getErrorMessage(this.errorCode);
-
-        return message;
+        return errorMessageMapping.getErrorMessage(this.errorCode);
     }
 } 
